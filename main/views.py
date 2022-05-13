@@ -1,10 +1,13 @@
 from rest_framework import viewsets
-
+from rest_framework.response import Response
+from .models import Grades
+from .serializers import GradeSerializer
 
 class GradeViewSet(viewsets.ViewSet):
     def list(self,request):
-        #/api/product
-        pass
+        grades = Grades.objects.all()
+        serializer = GradeSerializer(grades,many=True)
+        return Response(serializer.data)
     
     def create(self,request):
         #/api/product

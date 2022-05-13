@@ -10,6 +10,6 @@ urlpatterns = [
     path('grades/<str:pk>', GradeViewSet.as_view({
         'get':'read',
         'put':'update',
-        'delete':'delete',
-    })),
+        'delete':'destroy',
+    })),    
 ]

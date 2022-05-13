@@ -16,16 +16,20 @@ class GradeViewSet(viewsets.ViewSet):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 
     def read(self,request,pk=None):
-        #/api/product/pk
-        pass
+        grade = Grades.objects.get(id=pk)
+        serializer = GradeSerializer(grade)
+        return Response(serializer.data)
     
     def update(self,request,pk=None):
-        #/api/product/pk
-        pass
+        grade = Grades.objects.get(id=pk)
+        serializer = GradeSerializer(instance=grade, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
+
     
     def destroy(self,request,pk=None):
-        #/api/product/pk
-        pass
+        grade = Grades.objects.get(id=pk)
+        grade.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
-
-

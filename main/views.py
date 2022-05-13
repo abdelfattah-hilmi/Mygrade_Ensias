@@ -18,7 +18,7 @@ class GradeViewSet(viewsets.ViewSet):
         #/api/product/pk
         pass
     
-    def delete(self,request,pk=None):
+    def destroy(self,request,pk=None):
         #/api/product/pk
         pass
     

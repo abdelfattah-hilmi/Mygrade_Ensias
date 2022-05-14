@@ -1,8 +1,34 @@
-from xmlrpc.client import DateTime
 from django.db import models
-from django.core.validators import MaxValueValidator,MinValueValidator 
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core.validators import MaxValueValidator,MinValueValidator,MinLengthValidator
 
+class Users(AbstractBaseUser,PermissionsMixin):
+    username = None #override username field with none to use email  
+    email = models.CharField(
+        max_length=255,
+        unique=True,
+        null=False
+        ) #TODO implement email validator
+    firstname = models.CharField(
+        max_length=255
+        ) 
+    lastname = models.CharField(
+        max_length=255
+        )
+    password = models.CharField(
+        max_length=255,
+        blank=False, 
+        null=False,
+        validators=[MinLengthValidator(8)]
+        )
+    major = models.ForeignKey(
+        'Majors',
+        null=True,
+        on_delete=models.SET_NULL
+        )
 
+    REQUIRED_FIELDS = ['fistname','lastname','password']
+    USERNAME_FIELD = 'email'
 
 class Majors(models.Model):
 
@@ -18,6 +44,7 @@ class Majors(models.Model):
         max_length = 400,
         blank = True
     )
+
     
 
 
@@ -25,6 +52,12 @@ class Subjects(models.Model):
     name = models.CharField(
         max_length = 50
     )
+    major = models.ForeignKey(
+        'Majors',
+        null=True,
+        on_delete=models.SET_NULL
+        )
+    
 
 
 class Grades(models.Model):
@@ -34,3 +67,13 @@ class Grades(models.Model):
             MinValueValidator(0)
         ]
     )
+    subject = models.ForeignKey(
+        'Subjects',
+        null=True,
+        on_delete=models.SET_NULL
+        )
+    user = models.ForeignKey(
+        'Users',
+        null=True,
+        on_delete=models.SET_NULL
+        )

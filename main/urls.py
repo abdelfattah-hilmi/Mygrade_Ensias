@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GradeViewSet,MajorView,SubjectListView,majorsListApiView
+from .views import GradeViewSet,MajorView,SubjectListView,SubjectView,majorsListApiView
 
 #TODO implement regex urls
 
@@ -17,4 +17,6 @@ urlpatterns = [
     path('majors/',majorsListApiView),
     path('majors/<str:id>',MajorView.as_view()),
     path('subjects/',SubjectListView.as_view()),
+    path('subjects/<str:id>',SubjectView.as_view()),
+    
 ]

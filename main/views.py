@@ -33,7 +33,13 @@ class MajorView(generics.RetrieveUpdateDestroyAPIView):
 class SubjectListView(generics.ListCreateAPIView):
     queryset = Subjects.objects.all()
     serializer_class = SubjectSerialzer
-    
+
+class SubjectView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Subjects.objects.all()
+    serializer_class = SubjectSerialzer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id' 
+
 
 
 

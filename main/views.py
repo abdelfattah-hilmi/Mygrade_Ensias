@@ -1,12 +1,13 @@
 from rest_framework import viewsets,status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Grades,Majors
-from .serializers import GradeSerializer,MajorSerializer
-
+from .models import Grades,Majors,Subjects
+from .serializers import GradeSerializer,MajorSerializer,SubjectSerialzer
 from rest_framework import generics # this is a good library to generate crud apis 
 
 #TODO use generics To make life even easier 
+
+# Major api_view : function based api-------------
 
 @api_view(['GET','POST'])
 def majorsListApiView(request):
@@ -27,9 +28,18 @@ class MajorView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     lookup_url_kwarg = 'id'
 
+# Subject APIview-------------
+
+class SubjectListView(generics.ListCreateAPIView):
+    queryset = Subjects.objects.all()
+    serializer_class = SubjectSerialzer
+    
 
 
-# Grade view  
+
+
+
+# Grade ViewSET  
 class GradeViewSet(viewsets.ViewSet):
     def list(self,request):
         grades = Grades.objects.all()

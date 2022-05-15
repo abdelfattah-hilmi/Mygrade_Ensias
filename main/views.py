@@ -5,7 +5,8 @@ from .models import Grades,Majors,Subjects
 from .serializers import GradeSerializer,MajorSerializer,SubjectSerialzer
 from rest_framework import generics # this is a good library to generate crud apis 
 
-#TODO use generics To make life even easier 
+
+#TODO implement user authentication
 
 # Major api_view : function based api-------------
 
@@ -30,7 +31,7 @@ class MajorView(generics.RetrieveUpdateDestroyAPIView):
 
 # Subject APIview-------------
 
-class SubjectListView(generics.ListCreateAPIView):
+class SubjectsListView(generics.ListCreateAPIView):
     queryset = Subjects.objects.all()
     serializer_class = SubjectSerialzer
 
@@ -41,11 +42,24 @@ class SubjectView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'id' 
 
 
+# Grade APIView
+
+class GradesListView(generics.ListCreateAPIView):
+    queryset = Grades.objects.all()
+    serializer_class = GradeSerializer
+
+class GradeView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Grades.objects.all()
+    serializer_class = GradeSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
 
 
 
-# Grade ViewSET  
+
+"""
+
 class GradeViewSet(viewsets.ViewSet):
     def list(self,request):
         grades = Grades.objects.all()
@@ -75,4 +89,6 @@ class GradeViewSet(viewsets.ViewSet):
         grade = Grades.objects.get(id=pk)
         grade.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+"""
     

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GradeViewSet,majorApiView
+from .views import GradeViewSet,MajorView,majorsListApiView
 
 urlpatterns = [
     path('grades/', GradeViewSet.as_view({
@@ -11,5 +11,6 @@ urlpatterns = [
         'put':'update',
         'delete':'destroy',
     })),
-    path('majors/',majorApiView)    
+    path('majors/',majorsListApiView),
+    path('majors/<str:id>',MajorView.as_view())
 ]

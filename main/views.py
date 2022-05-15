@@ -4,10 +4,12 @@ from rest_framework.decorators import api_view
 from .models import Grades,Majors
 from .serializers import GradeSerializer,MajorSerializer
 
+from rest_framework import generics # this is a good library to generate crud apis 
 
+#TODO use generics To make life even easier 
 
 @api_view(['GET','POST'])
-def majorApiView(request):
+def majorsListApiView(request):
     if request.method == 'GET':
         majors = Majors.objects.all()
         serializer = MajorSerializer(majors, many=True)
@@ -19,6 +21,11 @@ def majorApiView(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+class MajorView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Majors.objects.all()
+    serializer_class = MajorSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
 
 

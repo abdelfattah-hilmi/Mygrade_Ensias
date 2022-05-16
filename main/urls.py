@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import GradesListView,GradeView,MajorView,SubjectsListView,SubjectView,majorsListApiView
+from .views import RegisterUserView,GradesListView,GradeView,MajorView,SubjectsListView,SubjectView,majorsListApiView
 
 #TODO implement regex urls
 
 
 urlpatterns = [
+    path('register/',RegisterUserView.as_view()),
     path('grades/', GradesListView.as_view()),
     path('grades/<str:pk>', GradeView.as_view()),
     path('majors/',majorsListApiView),

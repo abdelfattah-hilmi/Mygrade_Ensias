@@ -1,12 +1,21 @@
 from rest_framework import viewsets,status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from .models import Grades,Majors,Subjects
-from .serializers import GradeSerializer,MajorSerializer,SubjectSerialzer
+from .models import Users,Grades,Majors,Subjects
+from .serializers import UsersSerializer,GradeSerializer,MajorSerializer,SubjectSerialzer
 from rest_framework import generics # this is a good library to generate crud apis 
 
 
 #TODO implement user authentication
+
+class RegisterUserView(generics.ListCreateAPIView):
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializer
+    
+
+
+
 
 # Major api_view : function based api-------------
 

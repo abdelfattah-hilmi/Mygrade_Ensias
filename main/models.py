@@ -44,6 +44,8 @@ class Majors(models.Model):
         max_length = 400,
         blank = True
     )
+    def __str__(self):
+        return str(self.title)
 
     
 
@@ -57,7 +59,8 @@ class Subjects(models.Model):
         null=True,
         on_delete=models.SET_NULL
         )
-    
+    def __str__(self):
+        return str(self.name)
 
 
 class Grades(models.Model):

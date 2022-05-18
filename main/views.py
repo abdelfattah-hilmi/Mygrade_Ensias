@@ -1,4 +1,5 @@
 from rest_framework import viewsets,status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -8,13 +9,29 @@ from rest_framework import generics # this is a good library to generate crud ap
 
 
 #TODO implement user authentication
+# User registration ---------------
 
 class RegisterUserView(generics.ListCreateAPIView):
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
-    
 
+# login view -----------
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
 
+        user = Users.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+        
+        return Response({
+            'succes':True
+        })
 
 
 # Major api_view : function based api-------------

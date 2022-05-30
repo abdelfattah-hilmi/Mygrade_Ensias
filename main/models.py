@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin,BaseUserManager
 from django.core.validators import MaxValueValidator,MinValueValidator,MinLengthValidator
 
 class Users(AbstractBaseUser,PermissionsMixin):
@@ -26,7 +26,7 @@ class Users(AbstractBaseUser,PermissionsMixin):
         null=True,
         on_delete=models.SET_NULL
         )
-
+    objects = BaseUserManager() #Todo create my custom user manager 
     REQUIRED_FIELDS = ['fistname','lastname','password']
     USERNAME_FIELD = 'email'
 

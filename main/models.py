@@ -29,6 +29,8 @@ class Users(AbstractBaseUser,PermissionsMixin):
     objects = BaseUserManager() #Todo create my custom user manager 
     REQUIRED_FIELDS = ['fistname','lastname','password']
     USERNAME_FIELD = 'email'
+    def __str__(self):
+        return  f"{self.firstname} {self.lastname}"
 
 class Majors(models.Model):
 

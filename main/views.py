@@ -36,18 +36,23 @@ class LoginView(APIView):
 
 # Major api_view : function based api-------------
 
-@api_view(['GET','POST'])
-def majorsListApiView(request):
-    if request.method == 'GET':
-        majors = Majors.objects.all()
-        serializer = MajorSerializer(majors, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+# @api_view(['GET','POST'])
+# def majorsListApiView(request):
+#     if request.method == 'GET':
+#         majors = Majors.objects.all()
+#         serializer = MajorSerializer(majors, many=True)
+#         return Response(serializer.data,status=status.HTTP_200_OK)
     
-    if request.method == 'POST':
-        serializer = MajorSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     if request.method == 'POST':
+#         serializer = MajorSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class MajorsListView(generics.ListCreateAPIView):
+    queryset = Majors.objects.all()
+    serializer_class = MajorSerializer
+
 
 class MajorView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Majors.objects.all()
